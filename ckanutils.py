@@ -730,7 +730,10 @@ class CKAN(object):
                 raise err
         else:
             revision = self.revision_show(id=resource['revision_id'])
-            return revision['packages'][0]
+            try:
+                return revision['packages'][0]
+            except IndexError:
+                return resource['package_id']
 
     def create_hash_table(self, verbose=False):
         kwargs = {
